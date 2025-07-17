@@ -1,15 +1,27 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+// Importamos las rutas
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+// Importmoas los compoentne
+import LoginForm from './components/auth/LoginForm'
+import Home from './components/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('access'))
+
+  // Se ejecuta la función cada inicio de sesión
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true)
+  }
 
   return (
-    <>
-      <h1>Hello world!</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/ingresar-cuenta' element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
