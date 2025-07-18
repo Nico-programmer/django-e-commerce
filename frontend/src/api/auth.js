@@ -25,9 +25,12 @@ export const refreshAccessToken = async () => {
     const refresh = localStorage.getItem('refresh')
     // Realizamos la petición
     const response = await api.post('user/api/token/refresh/', {refresh})
+    const newAccess = response.data.access
 
-    // Almacenamos el token
-    localStorage.setItem('access', response.data.access)
+    // Guardar el nuevo token
+    localStorage.setItem('access', newAccess)
+
+    return newAccess
 }
 
 // Cargamos la vista protegida
@@ -53,19 +56,5 @@ export const getProtectedData = async () => {
         } else {
             throw error
         }
-    }
-}
-
-// Crear una funcion para cerrar sesión
-export const logout = async() => {
-    const navigate = useNavigate()
-
-    const handleLogout = () => {
-        // Eliminar tokens
-        localStorage.removeItem('access')
-        localStorage.removeItem('refresh')
-
-        // Redirigimos
-        navigate('/ingresar-cuenta')
     }
 }

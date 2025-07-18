@@ -1,53 +1,47 @@
-// Exportamos funciones
-import { useEffect, useState } from 'react'
-// Importamos los decoradores JWT
-import { jwtDecode } from 'jwt-decode'
-import { getUser } from '../api/user.config'
+import { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { getUser } from '../api/user.config';
+import Navigate from './navigation/Navigate'; // Asegúrate que esté bien
 
-// Importamos un componente
-import Navigate from './navigation/Navigate'
+function Home() {
+  const [user, setUser] = useState(null);
 
-function Home({pk}) {
+  useEffect(() => {
+    const access = localStorage.getItem('access');
+    if (!access) return;
 
-    const [user, setUser] = useState(null)
+    try {
+      const decoded = jwtDecode(access);
+      const userId = decoded.user_id;
 
-    useEffect(() => {
-        // Cargamos el token de acceso
-        const access = localStorage.getItem('access')
-
-        // Validamos si el token es valido
-        if (!access) return
-
-        // Creamos un decorador (obtener token y el id)
-        const decoded = jwtDecode(access)
-        const userId = decoded.user_id
-
-        async function loadUser() {
-            try {
-                // Realizamos la ppetición
-                const res = await getUser(userId)
-                // Guardamos los datos del usuario
-                setUser(res.data)
-            } catch (err) {
-                console.error('Error al cargar el usuario: ', err)
-            }
+      async function loadUser() {
+        try {
+          const res = await getUser(userId);
+          setUser(res.data);
+        } catch (err) {
+          console.error('Error al cargar el usuario:', err);
         }
+      }
 
-        loadUser()
-    }, [])
-
-    // Evitamos errores
-    if (!user) {
-        return <p>Cargando usuario...</p>
+      loadUser();
+    } catch (err) {
+      console.warn('Token inválido o expirado');
     }
+  }, []);
 
-    return (
-        <>
-            <Navigate />
-            <h1>Hola Usuario</h1>
-            <p>Correo {user.email}</p>
-        </>
-    )
+  return (
+    <>
+      <Navigate /> {/* Tu componente de navegación personalizado */}
+
+      <h1>Hola Usuario</h1>
+
+      {user ? (
+        <p>Correo: {user.email}</p>
+      ) : (
+        <p>No se pudo cargar tu información.</p>
+      )}
+    </>
+  );
 }
 
-export default Home
+export default Home;

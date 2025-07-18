@@ -19,6 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
+        {/* Sessiones */}
         <Route path='/ingresar-cuenta' element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
       </Routes>
     </BrowserRouter>

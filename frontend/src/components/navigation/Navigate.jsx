@@ -1,5 +1,5 @@
-import { logout } from '../../api/auth'
 import { Link } from 'react-router-dom'
+import { LogoutButton } from '../labels/Labels'
 
 function Navigate() {
     return (
@@ -10,7 +10,7 @@ function Navigate() {
                 <li>Inicio</li>
 
                 <li><Link to="/ingresar-cuenta">Ingresar</Link></li>
-                <li>Cerrar sesión</li>
+                <li><LogoutButton /></li>
             </ul>
         </div>
     )
