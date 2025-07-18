@@ -2,6 +2,9 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
+# Importmos el modelo
+from .models import CustomUser
+
 # Creamos un serializador para el manejo de tokens
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     username_field = 'email' # <- Usar solo el email
@@ -33,3 +36,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['full_name'] = user.full_name
         
         return token
+    
+# Serializador para usuarios
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        # Modelo
+        model = CustomUser
+        # Campos
+        fields = '__all__'

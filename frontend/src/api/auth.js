@@ -1,4 +1,6 @@
 import api from './config'
+// Redirección
+import { useNavigate } from 'react-router-dom'
 
 // Creamos una función asincrona
 export const login = async (email, password) => {
@@ -51,5 +53,19 @@ export const getProtectedData = async () => {
         } else {
             throw error
         }
+    }
+}
+
+// Crear una funcion para cerrar sesión
+export const logout = async() => {
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        // Eliminar tokens
+        localStorage.removeItem('access')
+        localStorage.removeItem('refresh')
+
+        // Redirigimos
+        navigate('/ingresar-cuenta')
     }
 }
