@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import { Link } from 'react-router-dom'
+// Iconos
+import { FaDoorOpen } from "react-icons/fa6"
 
 export function LogoutButton() {
     const  navigate = useNavigate()
@@ -13,6 +16,8 @@ export function LogoutButton() {
     }
 
     return (
-        <button onClick={handleLogout}>Cerrar sesión</button>
+        <button onClick={handleLogout} className="cursor-pointer text-sm font-medium text-gray-800 dark:text-white">
+            <FaDoorOpen size={24} />
+        </button>
     )
 }

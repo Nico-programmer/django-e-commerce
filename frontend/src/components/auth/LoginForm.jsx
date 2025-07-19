@@ -30,13 +30,22 @@ function LoginForm({ onLoginSuccess }) {
             // Realizamos la petición
             await login(email, password)
             // Mensaje de exito
-            Swal.fire({
-                title: '¡Bienvenido!',
-                text: 'Inicio de sesión exitoso',
-                icon: 'success',
-                confirmButtonText: 'Entrar',
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer
+                    toast.onmouseleave = Swal.resumeTimer
+                }
             })
-            
+            Toast.fire({
+                icon: 'success',
+                title: 'Inicio de sesión exitoso'
+            })
+
             // Iniciamos sesión
             onLoginSuccess()
             // Redireccionar al Home
@@ -45,12 +54,21 @@ function LoginForm({ onLoginSuccess }) {
             console.error("Error real de login:", error.response?.data || error.message)
             
             // Mensaje de error
-            Swal.fire({
-                title: 'Error',
-                text: '¡Credenciales invalidas!',
-                icon: 'error',
-                confirmButtonText: 'Intentar de nuevo'
-            })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "¡Credeciales invalidas!",
+            });
         }
     }
 
