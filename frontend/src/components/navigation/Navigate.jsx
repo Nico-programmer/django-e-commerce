@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { getUser } from '../../api/user.config'
 import { jwtDecode } from 'jwt-decode'
 import viteLogo from '/vite.svg'
+import UserImage from '/perfil.png'
 // Icono
 import { FaDoorClosed } from "react-icons/fa6"
 
@@ -64,7 +65,7 @@ function Navigate() {
               </div>
               <img
                 className="w-10 h-10 rounded-full object-cover border-2 border-gray-300 cursor-pointer"
-                src="https://i.pravatar.cc/40?u=user"
+                src={ UserImage }
                 alt="Avatar"
               />
               <LogoutButton />

@@ -23,12 +23,20 @@ export const login = async (email, password) => {
 // Refrescamos el token
 export const refreshAccessToken = async () => {
     const refresh = localStorage.getItem('refresh')
-    // Realizamos la petición
-    const response = await api.post('user/api/token/refresh/', {refresh})
+    if (!refresh) throw new Error("No refresh token")
+    
+    // usamos axios puro para evitar errores
+    const response = await axios.post('http://localhost:8000/user/api/token/refresh/', {
+        refresh
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
     const newAccess = response.data.access
 
-    // Guardar el nuevo token
-    localStorage.setItem('access', newAccess)
+    localStorage.get('access', newAccess)
 
     return newAccess
 }

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # Aplicaciones
     'user',
+    'products',
 ]
 
 # Configuración de RestFramework
@@ -72,7 +73,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173' # <- Permite hacer peticiones desde el backend
+    'http://localhost:5173' # <- Permite hacer peticiones desde el frontend
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -143,6 +144,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

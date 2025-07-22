@@ -1,6 +1,17 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 
+# Creamos una empresa
+class Company(models.Model):
+    name = models.CharField(verbose_name='Nombre', max_length=150)
+    
+    class Meta:
+        verbose_name = 'Compañia'
+        verbose_name_plural = 'Compañias'
+        
+    def __str__(self):
+        return f'{ self.name }'
+
 # Manejamos el usuario.
 class CustomUserManager(BaseUserManager):
     # Crear usuario personalizado
@@ -35,7 +46,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=255, blank=True, verbose_name='Nombre completo')
     
     # Nombre de la empresa
-    Company = models.CharField(max_length=150, null=True, blank=True, verbose_name='Compañia')
+    Company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Nombre de la compañia')
     
     # Valores por defecto
     is_active = models.BooleanField(default=True, verbose_name='Usuario activo?')
