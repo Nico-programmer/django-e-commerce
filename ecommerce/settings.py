@@ -118,8 +118,13 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
+# settings.py
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Para desarrollo
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Media files (img, video, etc)
 MEDIA_URL = '/media/'
