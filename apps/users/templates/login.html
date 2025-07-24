@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-100 dark:bg-gray-900">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full flex items-center justify-center">
+
+    <form method="post" action="{% url 'login' %}" class="w-full max-w-sm bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        {% csrf_token %}
+        <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">INICIAR SESIÓN</h2>
+
+        {% if form.non_field_errors %}
+            <div class="mb-4 text-sm text-red-600 dark:text-red-400">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <!-- Correo -->
+        <div class="mb-5">
+            <label for="id_username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo Electrónico</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 16">
+                        <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                        <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                    </svg>
+                </div>
+                <input type="email" name="username" id="id_username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="correo@ejemplo.com" required>
+            </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="mb-5">
+            <label for="id_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+            <div class="relative">
+                <input type="password" name="password" id="id_password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="••••••••" required>
+
+                <!-- Icono del ojo -->
+                <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400">
+                    <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
+            Iniciar sesión
+        </button>
+    </form>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("id_password");
+            const eyeIcon = document.getElementById("eyeIcon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.967 9.967 0 012.124-3.272m3.178-2.078A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.957 9.957 0 01-4.221 5.137M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18" />
+                `;
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>

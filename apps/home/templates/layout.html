@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +10,12 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body class="bg-white border-gray-200 dark:bg-gray-900">
-    {% include "includes/navbar.html" %}
-
-    <div class="container">
-        {% block content %}{% endblock %}
+    <div>
+        {% include "includes/navbar.html" %}
     </div>
 
+    <div>
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>

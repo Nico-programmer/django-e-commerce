@@ -11,6 +11,8 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Precio')
     stock = models.IntegerField(verbose_name='Cantidad')
     
+    img = models.ImageField(upload_to='product/', verbose_name='imagen', null=True, blank=True)
+    
     class Meta:
         verbose_name = 'Producto'
         verbose_name_plural = 'Productos'
